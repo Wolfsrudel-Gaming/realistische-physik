@@ -237,3 +237,33 @@
 - **F134 Tankstellen-Vorrat:** **Konfigurierbar** – Server entscheidet: begrenzter Vorrat je Kraftstoffart mit Tanklaster-Logistik oder unbegrenzt.
 - **F135 Fahrzeugbedienung:** **Alles** – Türen/Fenster/Verdeck/Kofferraum/Haube manuell; Sitzplatz-Logik (Durchrutschen, Kindersitze, Gewichtsverteilung); Bedienelemente (Blinker, Warnblinker, Lichtschalter, Hupe, Wischerstufen, Heizung/Klima); realistische Dauer für Einsteigen/Anschnallen/Starten.
 
+### Block 46 – Schnee, Naturereignisse, Infrastruktur
+- **F136 Schnee:** **Realistisch regional** – Schnee in den Bergen (Chiliad) regelmäßig, in der Stadt sehr selten (kalifornisches Klima); Physik regional, Optik bestmöglich.
+- **F137 Naturereignisse:** **Alle** – Sturm/Orkan (Böen auf alle Fahrzeugarten, umstürzende Bäume/Schilder), Starkregen/Hochwasser (überflutete Senken, Absaufen/Abtreiben), Waldbrand (Ausbreitung nach Wind/Trockenheit/Vegetation), Erdbeben, dichter Nebel.
+- **F138 Infrastruktur:** **Mit Persistenz** – realistische Festigkeit (Mast bricht/hält je nach Energie), umgefahrene Objekte bleiben bis zur Reparatur (Straßenmeisterei-Job), Ampelausfall.
+
+### Block 47 – Projektname, Head-Tracking/VR, Modelle
+- **F139 Projektname:** **Wolfsrudel-Name** (genauer Prefix → Nachfrage F142).
+- **F140 Head-Tracking/VR:** **Ja, wenn irgendwie möglich – auch VR über Oculus Quest 2** (Gerät vorhanden). *(Technische Grenzen → Nachfrage F143)*
+- **F141 Modelle:** **Vorerst nur Vanilla-Modelle** (z. B. Jet/Luxor/Shamal/Titan, Jetmax/Tug/Kosatka/Submersible, Dozer/Handler, Freight). System muss trotzdem modell-agnostisch für spätere Addons sein.
+
+### Block 48 – Prefix, VR-Wunsch, Reittiere
+- **F142 Prefix:** **`wr_physics`** → `wr_physics_core`, `wr_physics_vehicle`, `wr_physics_aviation` …
+- **F143 VR:** Leinwand allein reicht nicht – Wunsch nach **möglichst echtem VR** (Idee: als Shader oder Grafik-Mod à la QuantV). *(Technische Einordnung & Stufenplan → Nachfrage F145)*
+- **F144 Reittiere:** **Spätere Ausbaustufe** – Schnittstellen vorbereiten, Umsetzung sobald ein Addon-Pferd vorhanden ist.
+
+### Block 49 – VR-Priorität, Downloadgröße, Reihenfolge
+- **F145 VR/Head-Tracking:** **Ganz nach hinten** in der Roadmap (Stufenplan: Head-Tracking 6DoF via Quest → ggf. Pseudo-3D-Shader, echtes VR nur falls Cfx es offiziell erlaubt). **Wichtiger:** realistische **Ampelschaltungen** und realistischer **Verkehr** (→ Nachfragen F148 ff.).
+- **F146 Downloadgröße:** **Egal** – Realismus vor Größe (trotzdem sinnvoll komprimieren/streamen).
+- **F147 Reihenfolge:** Nach Kern + PKW zuerst **Rest Straße** (Motorrad, LKW/Anhänger, Offroad, Fahrrad, Fuel-System), danach Luft/See.
+
+### Block 50 – Ampeln, NPC-Verkehr, Straßennetz
+- **F148 Ampeln:** **Voll realistisch** – serverseitig synchron für alle, Phasenpläne je Kreuzung (Gelb/Rot-Gelb nach Region), Fußgängerampeln, Grüne Welle, Induktionsschleifen/Bedarfsschaltung, Nachtabschaltung (Gelb blinkend), Ausfall bei Stromausfall/Unfall (vgl. F138).
+- **F149 NPC-Verkehrsverhalten:** **Alles** – regelkonform (Ampeln, Vorfahrt, Tempolimits, Blinken, Abstand), Dichte nach Tageszeit (Rushhour, Nacht, Wochenende, Staus), Reaktionen (Rettungsgasse, Umfahren, Gaffer, Bremsen), Fahrer-Persönlichkeiten (vorsichtig/normal/aggressiv/abgelenkt). **Zusätzlich:** System soll sich am **Spielerverhalten orientieren/es kopieren**, sodass auch mal ein NPC durch die City heizt. *(Methode → Nachfrage F151)*
+- **F150 Straßennetz:** **Eigenes Straßennetz** – Graph mit Tempolimits, Vorfahrt, Spuren, Verkehrszeichen; Editor im Admin-Tool; Basis aus GTA-Pfadknoten. Genutzt von NPCs, Blitzern, Tempomat/Verkehrszeichenerkennung, Polizei.
+
+### Block 51 – Lernender Verkehr, Fußgänger, Verkehrsverstöße
+- **F151 Lernen vom Spielerverhalten:** **Beides** – anonymisierte Statistik je Zone/Uhrzeit (Tempo vs. Limit, Rotläufe, Abstände) passt den NPC-Persönlichkeits-Mix an **+** gelegentliche „Kopierfahrer“, die konkrete Spielerfahrmuster nachfahren.
+- **F152 NPC-Fußgänger:** **Voll** – Zebrastreifen/Fußgängerampeln (synchron), gelegentliches Bei-Rot-Gehen, realistische Reaktion & Verletzungen bei Anstoß (Crash-Physik wie bei Spielern).
+- **F153 Verkehrsverstöße:** **Erfassen + Daten liefern** – stationäre/mobile Blitzer & Rotlichtblitzer erzeugen Messprotokolle (Foto, Kennzeichen, Wert, Toleranzabzug); Bußgeld über Polizei-/Wirtschafts-Script.
+
