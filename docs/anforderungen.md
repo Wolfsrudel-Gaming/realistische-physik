@@ -69,3 +69,78 @@
 - **F35 Gurt & Airbag:** **Voll realistisch** – Gurt manuell (Taste + Animation), Gurtwarner wie Realvorbild, Airbag-Auslösung nach Crash-Puls, ausgelöster Airbag muss getauscht werden, Herausschleudern ohne Gurt.
 - **F36 Sichtbare Deformation:** **Stärker + persistent** – verstärkte Deformation, in DB gespeichert, bleibt nach Ausparken/Restart erhalten, synchronisiert.
 
+### Block 13 – Wartung, Mechanik, Tuning
+- **F37 Wartung/Verschleiß:** **Voll** – Kilometerstand, Serviceintervalle, Verschleißteile (Öl, Filter, Zündkerzen, Zahnriemen, Kupplung …), vernachlässigte Wartung → Folgeschäden.
+- **F38 Mechaniker-Gameplay:** **Voll** – OBD-Diagnosegerät mit Fehlercodes, Teile als ox_inventory-Items, Einbau mit Werkzeug/Hebebühne, falscher Einbau möglich.
+- **F39 Tuning:** **Bauteilbasiert** – echte Teile (Turbo, Ansaugung, Auspuff, Chiptuning, Fahrwerk) ändern Datenblattwerte physikalisch, mit Nebenwirkungen (Haltbarkeit, Verbrauch, TÜV/Zulassung).
+
+### Block 14 – TÜV-Daten, Sound, Instrumente
+- **F40 TÜV/Zulassung:** **Nur Daten bereitstellen** – Physik liefert Messwerte (Bremsen, Profil, Licht, Abgas, Lautstärke) über API; TÜV-Job/Script separat.
+- **F41 Sound:** **Simulationsgesteuert** – Sounds aus RPM, Last, Schlupf, Bauteilzustand; kaputte Teile klingen kaputt.
+- **F42 Cockpit/HUD:** **Realistisches NUI-Instrumentenbrett** im Stil des jeweiligen Fahrzeugs (Tacho, DZM, Temperatur, Tank, Warnleuchten).
+
+### Block 15 – Instrumenten-Designs, Motorräder, Fahrräder
+- **F43 Instrumenten-Designs:** **Realistische Systeme pro Fahrzeugkategorie, zusätzlich nach Baujahr/Epoche** (Oldtimer ≠ brandneuer Supersportwagen). **Schiffe & Fluggeräte bekommen eigene, typgerechte HUDs/Cockpits** – wegen geringer Anzahl, aber großer Unterschiedlichkeit ruhig individuell (z. B. Boeing-Glascockpit ≠ Helikopter-Cockpit).
+- **F44 Motorräder:** **Voll** – Gegenlenken, Schräglage durch Grip begrenzt, Wheelie/Stoppie physikalisch, High-/Lowsider, Fahrer-Ragdoll, Helm/Schutzkleidung reduziert Verletzungen.
+- **F45 Fahrräder:** **Voll** – Tretleistung aus Ausdauer/Kondition des Charakters, Gangschaltung, Steigungen, E-Bikes mit Akku, Stürze.
+
+### Block 16 – LKW, Offroad, Anhänger
+- **F46 LKW/Nutzfahrzeuge:** **Alles** – Druckluftbremse (Druckaufbau, Federspeicher, Leck, Motorbremse/Retarder), lange Getriebe (12–18 Gänge, Range/Splitter, AMT wie Realvorbild), physikalische Anhänger/Sattel (Knickwinkel, Jackknifing, Ankuppeln mit Luft/Strom), Achslast & Waage (Überladung messbar, Reifenplatzer).
+- **F47 Offroad:** **Voll** – Einsinken je Masse & Reifendruck, Festfahren, Achsverschränkung, Wattiefe/Wasserschlag, Seilwinde, Bergung.
+- **F48 Abschleppen/Anhänger PKW:** **Voll physikalisch** – Seil/Stange mit echten Kräften, Anhänger (Wohnwagen, Bootstrailer, Autotransporter) mit Stützlast, Pendeln, zulässiger Anhängelast.
+
+### Block 17 – Standzeit, Kamera, g-Kräfte
+- **F49 Standzeit-Zustand:** **Voll** – Zustände laufen auch offline/in der Garage weiter (zeitbasiert beim Ausparken nachberechnet: Abkühlen, Batterie-Selbstentladung, Luftverlust, Standschäden).
+- **F50 Kamera:** **Freie Wahl** der Perspektive, keine Einschränkung.
+- **F51 g-Kräfte/Erschütterungen:** **Voll** – Kopfbewegung durch Längs-/Querbeschleunigung, Vibration je Fahrbahn, Schläge bei Schlaglöchern.
+
+### Block 18 – Rollen/Anschieben, Licht & Sicht, Schlüssel
+- **F52 Wegrollen/Anschieben:** **Voll** – ohne Handbremse/P/Gang rollt das Fahrzeug; Anschieben möglich (startet Motor bei Handschaltern).
+- **F53 Licht & Sicht:** **Voll** – Scheinwerfertyp je Baujahr (Halogen/Xenon/LED), Fernlicht blendet, defekte Lampen, beschlagene/vereiste/verschmutzte Scheiben, Wischer & Defroster nötig.
+- **F54 Schlüssel/Diebstahl:** **Eingebunden** – Wegfahrsperre/Lenkradschloss je Baujahr, Kurzschließen nur bei alten Fahrzeugen, leere Batterie = keine Zentralverriegelung.
+
+### Block 19 – Luftfahrt: Flugmodell, Typen, Systemtiefe
+- **F55 Flugmodell:** **Blade-Element / flächenbasiert** (X-Plane-ähnlich) – Auftrieb/Widerstand je Fläche, Anstellwinkel, Stall, Trudeln, Bodeneffekt, Klappen, Trimmung.
+- **F56 Flugzeugtypen:** **Alle** – Kleinflugzeuge (GA), Verkehrsflugzeuge (Jet, Glascockpit, Autopilot), Militär/Jets/Transporter, Sonder (Segelflug, Wasserflugzeug, UL, Drohnen).
+- **F57 Bedienung/Systeme:** **Study-Level** – vollständige Startprozeduren (Batterie, Fuel Pumps, Magnetos, APU, Bleed Air …), klickbare Cockpits, ohne korrekte Prozedur kein Start.
+
+### Block 20 – Cockpit-Bedienung, Avionik, Weight & Balance
+- **F58 Klickbare Cockpits:** **NUI-Panels** – detaillierte 2D-Panels (Overhead, Pedestal, MCP, FMC) als Overlay, per Maus/HOTAS bedienbar.
+- **F59 Avionik/Navigation:** **Voll** – VOR/NDB/ILS/GPS, eigene Navdaten für San Andreas (Wegpunkte, Airways, Anflugverfahren), FMC/Autopilot mit LNAV/VNAV, Transponder.
+- **F60 Weight & Balance/Treibstoff:** **Voll** – Leergewicht, Passagiere, Fracht, Treibstoff je Tank → Schwerpunkt, Vr, Startstrecke; AvGas/Jet-A, Betankung per Tankwagen, Tank-Management.
+
+### Block 21 – Helikopter, Atmosphäre, Ausfälle in der Luft
+- **F61 Helikopter:** **Alles** – Collective/Cyclic/Pedale getrennt, Drehmomentausgleich, Translational Lift, Bodeneffekt; Vortex Ring State, Retreating Blade Stall, Dynamic Rollover, Mast Bumping; Autorotation inkl. Rotordrehzahl-Management; Außenlast (Pendeln), Rettungswinde.
+- **F62 Atmosphäre:** **Alles** – Wind in Höhenschichten, Böen, Scherwinde; Thermik, Lee-Turbulenz, Wirbelschleppen; ISA-Atmosphäre/Dichtehöhe/QNH; Vergaser-/Flächenvereisung, Enteisung, IMC/Wolken, METAR.
+- **F63 Ausfälle:** **Voll realistisch** – Strukturgrenzen (Vne, g-Limits) → Strukturversagen; Triebwerksausfall, Vogelschlag, Systemausfälle; Wartung wie bei Fahrzeugen; harte Landung beschädigt Fahrwerk.
+
+### Block 22 – Zufallsdefekte, ATC/Lizenzen, Voice
+- **F64 Zufallsdefekte:** **Immer möglich** – MTBF-basierte Ausfälle pro Bauteil, Wahrscheinlichkeit steigt mit Alter/Verschleiß/versäumter Wartung, aber auch gut gewartete Teile können (selten) ausfallen. Gilt für **alle** Fahrzeugarten (Auto, Boot, Luftfahrzeug).
+- **F65 ATC & Lizenzen:** **Eingebunden** – Transponder/Squawk auf ATC-Radarschirm (Spieler-ATC), Funkfrequenzen, Lizenzprüfung je Musterberechtigung.
+- **F66 Voice:** Aktuell **pma-voice**, aber **SaltyChat und YaCA müssen ebenfalls unterstützt werden** → Voice-Adapter-Layer, pro Server per Config umschaltbar.
+
+### Block 23 – Vertrieb, Lärm/Voice, Fallschirm
+- **F67 Vertrieb:** **Open Source** → saubere Modul-Architektur, Konfigurierbarkeit, Doku für Fremdserver.
+- **F68 Lärm beeinflusst Voice:** **Ja** – Umgebungslärm (Fahrzeug, Fahrtwind, Triebwerk) dämpft Reichweite/Verständlichkeit; Headsets/Intercom nötig.
+- **F69 Fallschirm:** **Voll** – Freifall-Aerodynamik (Haltung, Terminalgeschwindigkeit), Öffnungsstoß, Schirmsteuerung mit Wind, Fehlöffnungen/Reserve, Landeverletzungen.
+
+### Block 24 – Lizenz, Framework-Bridges, Sprache
+- **F70 Lizenz:** **GPL-3.0**.
+- **F71 Framework-Bridges:** **ESX Legacy, QBCore, Qbox, Standalone**.
+- **F72 Sprache:** **Code & Kommentare Englisch, Doku zweisprachig (DE + EN), Ingame-Texte mehrsprachig** (Locales, Deutsch Standard).
+
+### Block 25 – Seefahrt: Rumpfphysik, Seegang, Sinken
+- **F73 Bootsphysik:** **Rumpf-Voxel/Punkte** – Auftrieb pro Segment (Archimedes), Verdränger vs. Gleiter, Trimm, Krängung, metazentrische Stabilität, physikalisches Kentern.
+- **F74 Seegang & Gewässer:** **Alles** – Wellen aus Wind (Beaufort), Slamming; Meeres-/Flussströmung, Ebbe/Flut mit Wasserstand; Tiefgang, Grundberührung, Propellerschaden, Echolot; Windversatz + **echte Segelphysik** (Am-Wind, Halse, Kentern).
+- **F75 Wassereinbruch:** **Voll** – Lecks nach Kollision/Grundberührung, Kompartments, Lenzpumpen, Sinken, Boot bleibt als Wrack.
+
+### Block 26 – Wracks, Schiffstypen, Bootsantrieb
+- **F76 Wracks:** **Persistent + bergbar** – Wrack bleibt am Grund (DB), Bergung durch Taucher/Bergungsschiff (Hebesäcke, Kran) als RP-Job.
+- **F77 Wasserfahrzeuge:** **Alle** – Motorboote/Jetski, Segelboote (Kiel, Ballast), große Schiffe (Frachter, Fähren, Yachten; träge, Bugstrahlruder, Anker, Schlepper), U-Boote (Ballasttanks, Tauchtiefe, Druck, Sauerstoff).
+- **F78 Bootsantrieb:** **Voll** – Motorsimulation wie Autos + Propellerphysik (Steigung, Kavitation, Radeffekt), Salzwasserkühlung, Trimm des Außenborders, Ansaugen von Schmutz.
+
+### Block 27 – Schwimmen/Tauchen, Seenot, Züge
+- **F79 Schwimmen & Tauchen:** **Voll** – Schwimmausdauer, Kleidung/Ausrüstung macht schwer, Strömung/Wellen, Ertrinken, Unterkühlung nach Wassertemperatur, Tauchphysik (Druck, Dekompression, Flaschenluft).
+- **F80 Seenot/Rettungsmittel:** **Physikalisch** – Schwimmweste hält Kopf über Wasser, Rettungsinsel als treibendes Objekt, Notsignal/EPIRB-Position für Küstenwache.
+- **F81 Züge:** **Fahrbar & realistisch** – Spieler-Lokführer, Zugmasse, Bremswege (Druckluft, Bremshundertstel), Signale, Weichen, Kuppeln von Waggons, Entgleisung bei Übergeschwindigkeit.
+
