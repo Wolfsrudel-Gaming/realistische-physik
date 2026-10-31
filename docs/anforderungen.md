@@ -179,3 +179,36 @@
 - **F101 Web-Panel-Technik:** Entwickler entscheidet → geplant: Panel als HTTP-Endpoint der Ressource (SetHttpHandler) für Basisfunktionen + eigenständige Web-App (TypeScript) mit Login (Discord/CFX).
 - **F102 Initiale Datenbefüllung:** **Auto-Import + Prüfung** – Ableitung aus handling.meta/Modellen + Realdaten-Recherche als Vorschlag, Admin prüft & gibt frei.
 
+### Block 35 – Fremdsysteme, Fuel-System, Fahrerzustand
+- **F103 Fremdsysteme:** Garage/Fahrzeugbesitz, Tankstellen/Laden, Polizei/Blitzer, Versicherung/Wirtschaft – **mit gängigen Standard-Scripts kompatibel, aber offen/adapterbasiert, damit jeder es für seine Zwecke anpassen kann**.
+- **F104 Fuel-/Lade-System:** **Eigenes System** (ersetzt ox_fuel/LegacyFuel) – Kraftstoffarten, Falschbetankung, Tankwagen-Logistik, E-Ladekurven.
+- **F105 Fahrerzustand:** **Voll** – Alkohol/Drogen/Müdigkeit → verzögerte Reaktion (Input-Lag), unruhige Lenkung, Tunnelblick; Verletzungen (z. B. gebrochener Arm) verhindern Schalten/Lenken.
+
+### Block 36 – Zustandsquellen, Projektstruktur, MVP
+- **F106 Quelle Alkohol/Drogen/Müdigkeit:** **Beides** – eigenes Basismodul (Promille-Abbau, Wirkkurven, Müdigkeit aus Wachzeit) + Bridge für externe Status-Scripts.
+- **F107 Projektstruktur:** **Modulare Ressourcen** – Core-Ressource (Physik-Kern, API, DB) + einzeln aktivierbare Module (Fahrzeug, Luft, Wasser, Bahn, Person, Wetter, Ballistik …).
+- **F108 MVP/Start:** **Kern + PKW zuerst** – Physik-Kern, Datenbank, Wetter-Basis, dann PKW-Fahrphysik (Reifen, Motor, Getriebe).
+
+### Block 37 – Team, Zeitrahmen, Tests
+- **F109 Team:** **Nur Auftraggeber + Claude** – Auftraggeber testet ingame, Claude entwickelt.
+- **F110 Zeitrahmen:** **Keine Eile** – Qualität vor Geschwindigkeit.
+- **F111 Tests:** **Alle** – Unit-Tests für Physikformeln (offline, z. B. busted), Dev-/Testserver, automatische Referenzmessungen (0–100, Elchtest, Bremsweg) gegen Herstellerdaten, CI/CD via GitHub Actions (Lint, Tests, Release-Pakete).
+
+### Block 38 – Testserver, Game-Build, Override-Verhalten
+- **F112 Testweg:** **Testserver vorhanden**, Zugang für Claude möglich → Weg wird in Nachfrage geklärt (Empfehlung: Deploy über GitHub statt direktem Serverzugang).
+- **F113 Game-Build:** Unbekannt → Empfehlung: aktuellen stabilen `sv_enforceGameBuild` erzwingen (neueste DLC-Fahrzeuge, Natives, Materialien); wird in Doku festgehalten.
+- **F114 Override:** **Konfigurierbar** – jedes Modul einzeln ein-/abschaltbar; wer andere Scripts (Handling/Fuel/Seatbelt …) nutzen will, deaktiviert das jeweilige Modul. Kollisionserkennung mit Warnung.
+
+### Block 39 – Deploy, Feedback-Rückweg, Realismus-Priorität
+- **F115 Deploy:** **Server zieht selbst** – Testserver holt den Branch per Git-Pull/txAdmin-Script (kein Serverzugang für Claude nötig).
+- **F116 Feedback-Rückweg:** **Beides** – Fehler/Telemetrie automatisch (Issue/Log-Datei), Fahrgefühl-Feedback manuell.
+- **F117 Realismus-Priorität:** **Beides – aber „fühlt sich echt an“ ist wichtiger**, weil das beim Spieler hängen bleibt. → Messwerte als Referenz, Feinabstimmung zugunsten des echten Gefühls (FFB, Kamera, Sound, Reaktionsverhalten).
+
+### Block 40 – Einstieg für Spieler, Lizenzen, Geometrie-Abweichungen
+- **F118 Spieler-Einstieg:** **Beides** – RP-Ausbildung (Fahr-/Flugschule, Mechaniker) + Betriebsanleitungen/Checklisten als Items (Handschuhfach) + externes Wiki.
+- **F119 Lizenzen/Führerscheinklassen:** **Nur Daten liefern** – benötigte Klasse je Fahrzeug (B, BE, C, CE, A, PPL, CPL, Musterberechtigung, Bootsschein), Durchsetzung über Polizei-RP. *(Klärung nötig: Widerspruch zu F65 „Lizenzprüfung je Musterberechtigung“ → Nachfrage F121)*
+- **F120 Geometrie vs. Realdaten:** **Physik nach Realdaten** – Masse/Leistung real, Geometrie (Radstand, Spur, Schwerpunkt) aus dem sichtbaren Modell → Physik konsistent zum Fahrzeug.
+
+---
+## Nachfragen (Klärungsrunde ab F121)
+
