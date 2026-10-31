@@ -1,7 +1,7 @@
 # Anforderungskatalog – Realistisches Physik-System (FiveM Hardcore-RP)
 
 > Wird während der Fragerunde fortlaufend gepflegt. Jede Antwort wird mit Fragenummer (F#) festgehalten.
-> Ziel: Grundlage für Konzept (`docs/konzept.md`) und Roadmap (`docs/roadmap.md`).
+> Status: **Fragerunde abgeschlossen (F1–F160).** Daraus abgeleitet: [`konzept.md`](konzept.md) und [`roadmap.md`](roadmap.md).
 
 ## Projektziel (Ausgangslage)
 - FiveM-Ressource(n) für einen **extremen Hardcore-RP-Server**.
@@ -267,3 +267,34 @@
 - **F152 NPC-Fußgänger:** **Voll** – Zebrastreifen/Fußgängerampeln (synchron), gelegentliches Bei-Rot-Gehen, realistische Reaktion & Verletzungen bei Anstoß (Crash-Physik wie bei Spielern).
 - **F153 Verkehrsverstöße:** **Erfassen + Daten liefern** – stationäre/mobile Blitzer & Rotlichtblitzer erzeugen Messprotokolle (Foto, Kennzeichen, Wert, Toleranzabzug); Bußgeld über Polizei-/Wirtschafts-Script.
 
+### Block 52 – Stromnetz, Messgeräte, Abschluss-Check
+- **F154 Stromnetz:** **Ja, mit Netzmodell** – Umspannwerke/Leitungen versorgen Bezirke; Sturm, Unfall (Mast umgefahren) oder Sabotage → Ausfall von Ampeln, Straßenlaternen, Ladesäulen, Zapfsäulen; Reparatur als RP-Job.
+- **F155 Messgeräte:** **Physikalisch mit Messfehlern** – Cosinus-Effekt (Radar), Sichtlinie (Laser), Eichpflicht, Toleranzen wie real (Radar, Laser, Promilletester, Profiltiefenmesser, Waage).
+- **F156 Abschluss-Check:** Auftraggeber hat **noch weitere Punkte** → Nachfrage F157.
+
+### Block 53 – Ergänzende Bereiche
+- **F157 Ergänzungen:** **Wildwechsel & Tiere** (Tiere auf der Straße, Kollision mit realer Tiermasse, Vogelschlag) und **Gebäude & Strukturen** (Türen/Tore aufbrechen mit realer Kraft, Fahrzeug durch Wand/Zaun, Brückenlast) kommen dazu.
+  **Nicht gewählt** (bewusst draußen): Eingeklemmt-&-Rettungssystem (Spreizer/Schere), physikalische Funkreichweite.
+
+### Block 54 – Wildwechsel, Strukturen, Abschluss
+- **F158 Wildwechsel:** **Realistisch nach Ort & Zeit** – häufiger nachts/in der Dämmerung in Wald-/Landgebieten (Paleto, Chiliad), Tiere reagieren auf Licht/Hupe, Kollision mit realer Masse (Reh ~25 kg, Hirsch ~150 kg, Kuh ~600 kg) → Fahrzeug-/Insassenschaden.
+- **F159 Gebäude/Strukturen:** **Alles** – Türen/Tore aufbrechen (Rammbock, Kuhfuß, Fahrzeug; Kraft je Türtyp), Zäune/Mauern (durchbrechen je Energie, Mauer hält, persistent bis Reparatur), Brückenlast/Tragfähigkeit (Stege, Rampen), Glas & Fenster (Verbundglas vs. ESG, Panzerglas, je Energie/Kaliber).
+- **F160 Abschluss:** Freigabe „wenn aus Entwicklersicht alles geklärt ist“ → **Fragerunde abgeschlossen** (160 Fragen). Weiter mit Konzept & Roadmap.
+
+---
+## Vom Entwickler getroffene Entscheidungen (wo „Du entscheidest“ gewählt wurde)
+| Frage | Entscheidung | Begründung |
+|---|---|---|
+| F4 Sprachaufteilung | Lua 5.4 für Client/Server-Logik & Physik; TypeScript (Svelte + Vite) für NUI; TypeScript (Node) für Web-Panel; C# (.NET) für die Companion-App | Lua ist in FiveM am schnellsten an den Natives; TS für UI-Komplexität; DirectInput-Force-Feedback ist in .NET am besten zugänglich |
+| F7 Handling-Ansatz | Hybrid: realistische Basis-Handling-Werte + Laufzeit-Simulation (Motor/Getriebe/Reifen/Aero) mit Steuerung der GTA-Parameter pro Frame und gezielten Zusatzkräften | Maximaler Realismus ohne die GTA-Kollisions-/Netzwerkphysik zu brechen |
+| F13 Geräteanbindung | NUI-Gamepad-API für Achsen/Tasten + optionale Companion-App (WebSocket an localhost) für FFB & Spezialgeräte | Funktioniert ohne Zusatzsoftware, voller Umfang mit App |
+| F101 Web-Panel | Eigenständige Web-App (TypeScript) mit DB-Zugriff + kleine HTTP-API in der Ressource (SetHttpHandler) für Live-Daten; Login per Discord | Entkoppelt vom Spielserver, trotzdem Live-Anbindung |
+| F113 Game-Build | Neuesten stabilen Build per `sv_enforceGameBuild` erzwingen | Neueste Natives, Fahrzeuge, Materialien |
+
+## Bewusst ausgeschlossen / nach hinten gestellt
+- Eingeklemmt-&-Rettungssystem (Spreizer/Schere) – nicht gewählt (F157).
+- Physikalische Funkreichweite – nicht gewählt (F157).
+- Technische Lizenzsperren – überall nur Daten (F119/F121).
+- TÜV-Logik selbst – nur Messdaten (F40).
+- Head-Tracking/VR – ganz ans Ende der Roadmap (F145).
+- Reittiere – vorbereitet, Umsetzung erst mit Addon-Modell (F144).
