@@ -144,3 +144,38 @@
 - **F80 Seenot/Rettungsmittel:** **Physikalisch** – Schwimmweste hält Kopf über Wasser, Rettungsinsel als treibendes Objekt, Notsignal/EPIRB-Position für Küstenwache.
 - **F81 Züge:** **Fahrbar & realistisch** – Spieler-Lokführer, Zugmasse, Bremswege (Druckluft, Bremshundertstel), Signale, Weichen, Kuppeln von Waggons, Entgleisung bei Übergeschwindigkeit.
 
+### Block 28 – Schienennetz, Bewegung zu Fuß, Fallschaden
+- **F82 Schienennetz:** **Eigene Strecken** – zusätzliche Gleise per Custom-Track-Dateien (Güterbahnhof, Rangiergleise …). *(Offen: Signalsystem/Fahrplan zusätzlich? → Nachfrage)*
+- **F83 Bewegung zu Fuß:** **Alles** – Ausdauer & Gewicht (Inventargewicht, Fitness, Verletzung, Steigung), Trägheit/Momentum, Rutschen & Stürzen (Eis, Nässe, Hang), realistisches Klettern/Springen (kein Bunnyhop).
+- **F84 Fallschaden/Ragdoll:** **Physikalisch** – Schaden aus Aufprallgeschwindigkeit & Untergrund (Wasser, Gras, Beton), Verletzungen je Körperteil, Abrollen möglich.
+
+### Block 29 – Bahn-Signaltechnik, sonstige Fortbewegung, Spezialfahrzeuge
+- **F85 Signale/Stellwerk:** **Ja, mit Stellwerk** – Signale (Hp0/Hp1/Vr), stellbare Weichen, Stellwerk-UI für Fahrdienstleiter-Spieler, Zugsicherung (PZB-artig), Fahrplan.
+- **F86 Sonstige Fortbewegung:** **Alle** – Pferde/Reittiere (Ausdauer, Fütterung), Ski/Snowboard/Rodel (Gleitphysik), E-Scooter/Skateboard (Akku/Muskelkraft), Rollstuhl/Gehhilfen (Medical-Kopplung).
+- **F87 Bau-/Spezialfahrzeuge:** **Funktional** – Hydraulik (Arm/Schaufel/Gabel), Lasten mit echtem Gewicht heben, Kippgefahr, Traktor mit Anbaugeräten/Zapfwelle.
+
+### Block 30 – Ballistik, Objekte, Feuer
+- **F88 Waffen-Ballistik:** **Voll** – Projektilflug (Drop, Wind, Flugzeit), Durchschlag je Material (Holz/Blech/Beton/Glas), Querschläger, kaliberspezifisch, Rückstoß, Fahrzeugtreffer → Bauteilschaden.
+- **F89 Objekte & Tragen:** **Alles** – reales Gewicht & Volumen je ox_inventory-Item, Tragen/Ziehen großer Objekte & Personen (schwere Lasten zu zweit), Ladungssicherung (ungesicherte Ladung rutscht/fällt, Spanngurte), Werfen/Physik-Props mit realer Masse.
+- **F90 Feuer & Explosionen:** **Voll** – Fahrzeugbrände aus Ursachen (Kurzschluss, Leck, Überhitzung, Akku-Thermal-Runaway), Brandausbreitung, Löschmittel (Wasser/Schaum/CO₂), keine Film-Explosionen.
+
+### Block 31 – Trefferberechnung, Wetter/Klima, Regionalität
+- **F91 Trefferberechnung:** **Client-Simulation + Server-Validierung** (Distanz, Sichtlinie, Flugzeit, Plausibilität).
+- **F92 Wetter/Klima:** **Eigenes physikalisches Modul** – Temperatur, Luftdruck, Feuchte, Wind (Richtung/Stärke/Höhe), Niederschlag, Wassertemperatur, Jahreszeiten; steuert GTA-Wetter und liefert Daten an alle Module.
+- **F93 Regionalität:** **Regional** – Wetterzonen mit Höhen-/Küsteneinfluss; GTA-Optik je Spielerposition, Physik nutzt lokale Werte.
+
+### Block 32 – Zeit, Körpertemperatur, Synchronisation
+- **F94 Zeit:** **Konfigurierbar** (Zeitfaktor einstellbar); Physik/Kräfte rechnen immer mit Echtzeit-Sekunden.
+- **F95 Körper-Temperaturhaushalt:** **Voll** – Körpertemperatur aus Wetter, Kleidung (Isolationswert), Nässe, Wind-Chill → Unterkühlung/Hitzschlag; Fahrzeugheizung/Klima wirkt.
+- **F96 Sync/Authority:** **Owner-Client simuliert + Server-State** – Ergebnisse über State Bags; Server speichert & validiert.
+
+### Block 33 – Anti-Cheat, Admin-/Debug-Tools
+- **F97 Manipulationsschutz:** **Integrierte Validierung** – Server prüft Plausibilität (Beschleunigung/Vmax vs. Datenblatt, Verbrauch, Teleport), Meldung an AC/Discord-Log.
+- **F98 Anti-Cheat:** **Noch offen** → generische Schnittstelle (Whitelisting-Exports gegen False-Positives bei ApplyForce/Handling-Änderungen).
+- **F99 Admin-/Debug-Tools:** **Alle** – Telemetrie-Overlay (Live-Graphen), Live-Tuning-Editor (→ Web-Panel), Fahrzeug-/Bauteil-Inspector, Daten-Logging (CSV/Replay, Unfallrekonstruktion).
+
+### Block 34 – Unfalldaten im RP, Web-Panel, Datenimport
+- **F100 Unfalldaten im RP:** **Voll** – EDR/Fahrtenschreiber (LKW) per Item auslesbar, Bremsspuren/Trümmer als persistente Spuren, Gutachter-Tool zur Unfallrekonstruktion.
+- **F101 Web-Panel-Technik:** Entwickler entscheidet → geplant: Panel als HTTP-Endpoint der Ressource (SetHttpHandler) für Basisfunktionen + eigenständige Web-App (TypeScript) mit Login (Discord/CFX).
+- **F102 Initiale Datenbefüllung:** **Auto-Import + Prüfung** – Ableitung aus handling.meta/Modellen + Realdaten-Recherche als Vorschlag, Admin prüft & gibt frei.
+
