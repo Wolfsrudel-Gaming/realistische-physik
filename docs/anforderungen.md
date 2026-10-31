@@ -212,3 +212,28 @@
 ---
 ## Nachfragen (Klärungsrunde ab F121)
 
+### Block 41 – Lizenz-Klärung, Tastatur-Lenkung, Companion-App
+- **F121 Lizenzen (Klärung F65↔F119):** **Überall nur Daten** – auch in der Luftfahrt liefert das System nur die benötigte Berechtigung; Prüfung/Strafe ausschließlich über RP. (F65 wird entsprechend gelesen: ATC/Transponder ja, keine technische Sperre.)
+- **F122 Tastatur-Lenkung:** **Lenk-Rampe ok, aber keine Assists** – Einschlag baut sich zeitlich auf, keine Gegenlenk-/Stabilitätshilfen.
+- **F123 Companion-App:** **Optional, Open Source** – signierter GitHub-Release; ohne App funktioniert alles außer FFB/Spezialgeräten.
+
+### Block 42 – Map-Maßstab, Verbrauch, Einheiten
+- **F124 Map-Maßstab:** **Umrechnen und anpassen, sodass es sich real anfühlt.**
+- **F125 Verbrauch:** **Map umrechnen** – Bezugsgrößen (Fahrzeug, Spielfigur) nutzen, berechnen, wie groß die Insel real wäre, und streckenabhängige Größen so anpassen, dass es wieder real passt. → Konzept „Welt-Maßstabsfaktor“ (siehe Nachfrage F127).
+- **F126 Einheiten:** **Wie Realvorbild/Markt** – US-Fahrzeuge mph/°F/gal, EU-Fahrzeuge km/h/°C/l; Luftfahrt kt/ft/inHg bzw. hPa wie real; Boote kn.
+
+### Block 43 – Welt-Maßstab, Langstrecken, Zeitbezug
+- **F127 Maßstabs-Prinzip:** **Bestätigt** – lokale Physik (Beschleunigung, Bremsen, Kurven, Kräfte) bleibt **1:1 real**; streckenabhängige Größen (Verbrauch, Verschleiß, km-Zähler, Akku-Reichweite) werden mit einem **berechneten Welt-Faktor** skaliert (aus Referenzstrecken GTA ↔ reales Vorbild, per Config überschreibbar).
+- **F128 Langstrecken Luft/See:** **Beides kombiniert** – erweiterter Luft-/Seeraum über die Map hinaus + Off-Map-Ziele (z. B. „San Fierro“, „Las Venturas“) mit realer Reisezeit, Zeitraffer-Option für sehr lange Strecken, Ankunft per Anflug/Einfahrt.
+- **F129 Zeitbezug:** **Echtzeit** – Ladezeiten, Abkühlung, Promille-Abbau, Reparaturdauer in **realen Minuten** (unabhängig vom Ingame-Zeitfaktor F94).
+
+### Block 44 – NPC-Verkehr, Material-Overrides, Datenblatt-Fallback
+- **F130 NPC-Verkehr:** **Vereinfacht** – realistische Basis-Handling-Werte, Unfallschaden & Bremswege, keine volle Simulation.
+- **F131 Kollisionsmaterialien:** **Zonen-Override-Editor** – Admin markiert Polygone ingame und überschreibt das Material (z. B. „Kopfstein“), gespeichert in DB.
+- **F132 Fehlendes Datenblatt:** **Klassen-Fallback + Warnung** – automatisch geschätztes Datenblatt aus Klasse/handling.meta, Admin-Warnung im Panel.
+
+### Block 45 – Körpertreffer, Tankstellen-Vorrat, Fahrzeugbedienung
+- **F133 Körpertreffer:** **Voll** – Schutzwesten nach Schutzklassen (VPAM/NIJ) je Kaliber, Trefferzonen → Verletzungen ans Medical, Energieübertrag, Durchschuss trifft Person dahinter.
+- **F134 Tankstellen-Vorrat:** **Konfigurierbar** – Server entscheidet: begrenzter Vorrat je Kraftstoffart mit Tanklaster-Logistik oder unbegrenzt.
+- **F135 Fahrzeugbedienung:** **Alles** – Türen/Fenster/Verdeck/Kofferraum/Haube manuell; Sitzplatz-Logik (Durchrutschen, Kindersitze, Gewichtsverteilung); Bedienelemente (Blinker, Warnblinker, Lichtschalter, Hupe, Wischerstufen, Heizung/Klima); realistische Dauer für Einsteigen/Anschnallen/Starten.
+
