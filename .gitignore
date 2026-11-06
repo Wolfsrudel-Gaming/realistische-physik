@@ -1,0 +1,5 @@
+resources/**/logs/
+.testserver-logs/
+dist/
+node_modules/
+*.log

@@ -1,0 +1,11 @@
+{
+  "veh.key_clutch": "Clutch (hold)",
+  "veh.key_shift_up": "Shift up / lever forward",
+  "veh.key_shift_down": "Shift down / lever back",
+  "veh.key_engine": "Engine start/stop",
+  "veh.stalled": "Engine stalled",
+  "veh.no_fuel": "Out of fuel",
+  "veh.spec_loaded": "Datasheet: %s (%s)",
+  "veh.spec_fallback": "No datasheet for '%s' - class fallback '%s' active",
+  "veh.module_started": "vehicle module started (coupling: %s)"
+}

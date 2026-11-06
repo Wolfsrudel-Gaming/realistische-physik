@@ -1,0 +1,11 @@
+{
+  "veh.key_clutch": "Kupplung (halten)",
+  "veh.key_shift_up": "Hochschalten / Wählhebel vor",
+  "veh.key_shift_down": "Runterschalten / Wählhebel zurück",
+  "veh.key_engine": "Motor starten/abstellen",
+  "veh.stalled": "Motor abgewürgt",
+  "veh.no_fuel": "Tank leer",
+  "veh.spec_loaded": "Datenblatt: %s (%s)",
+  "veh.spec_fallback": "Kein Datenblatt für '%s' – Klassen-Fallback '%s' aktiv",
+  "veh.module_started": "Fahrzeugmodul gestartet (Kopplung: %s)"
+}

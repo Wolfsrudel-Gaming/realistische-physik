@@ -1,0 +1,7 @@
+{
+  "core.started": "core started (v%s)",
+  "core.module_disabled": "module '%s' is disabled by configuration",
+  "core.framework": "framework: %s",
+  "core.db_unavailable": "oxmysql not available - persistence disabled",
+  "core.db_ready": "database ready (%d migrations)"
+}

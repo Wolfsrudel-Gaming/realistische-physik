@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>wr_physics telemetry</title>
+<style>
+  :root { --bg: rgba(12, 14, 18, 0.82); --fg: #e8eaf0; --dim: #9aa3b2; --acc: #4fc3f7; --warn: #ffb74d; --bad: #ef5350; --ok: #81c784; }
+  html, body { margin: 0; background: transparent; font: 13px/1.35 "Segoe UI", Roboto, sans-serif; color: var(--fg); }
+  #panel { position: fixed; right: 16px; top: 120px; width: 330px; background: var(--bg); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 10px 12px; display: none; backdrop-filter: blur(4px); }
+  #panel.on { display: block; }
+  h1 { margin: 0 0 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); display: flex; justify-content: space-between; }
+  h1 span.fb { color: var(--warn); }
+  .big { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+  .big div { background: rgba(255,255,255,.04); border-radius: 6px; padding: 6px 8px; }
+  .big b { display: block; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .big small { color: var(--dim); }
+  .bar { height: 8px; background: rgba(255,255,255,.08); border-radius: 4px; overflow: hidden; margin: 4px 0 8px; position: relative; }
+  .bar i { display: block; height: 100%; background: var(--acc); width: 0; transition: width 40ms linear; }
+  .bar i.red { background: var(--bad); }
+  .bar em { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--bad); }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 1px 0; font-variant-numeric: tabular-nums; }
+  td:first-child { color: var(--dim); width: 48%; }
+  td.r { text-align: right; }
+  .status { margin-top: 6px; color: var(--dim); font-size: 11px; }
+  .status b { color: var(--fg); }
+  .off { color: var(--bad); font-weight: 600; }
+  .on { color: var(--ok); font-weight: 600; }
+  .mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 6px; }
+  .mini div { font-size: 11px; color: var(--dim); }
+  .mini i { display: block; height: 5px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .mini i b { display: block; height: 100%; background: var(--acc); }
+  canvas { width: 100%; height: 48px; display: block; margin-top: 6px; background: rgba(255,255,255,.03); border-radius: 4px; }
+  #msg { position: fixed; left: 50%; bottom: 140px; transform: translateX(-50%); background: var(--bg); padding: 8px 14px; border-radius: 6px; display: none; white-space: pre; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="panel">
+  <h1><span id="spec">wr_physics</span><span id="fb" class="fb"></span></h1>
+  <div class="big">
+    <div><b id="speed">0</b><small id="speedUnit">km/h</small></div>
+    <div><b id="rpm">0</b><small>rpm</small></div>
+    <div><b id="gear">N</b><small id="lever">gear</small></div>
+  </div>
+  <div class="bar"><i id="rpmBar"></i><em id="redline"></em></div>
+  <div class="mini">
+    <div>Gas<i><b id="thr"></b></i></div>
+    <div>Bremse<i><b id="brk"></b></i></div>
+    <div>Kupplung<i><b id="clt"></b></i></div>
+    <div>Fuel<i><b id="fuel"></b></i></div>
+  </div>
+  <table>
+    <tr><td>Motor</td><td class="r" id="engine">–</td></tr>
+    <tr><td>Kupplung</td><td class="r" id="clutch">–</td></tr>
+    <tr><td>Motormoment</td><td class="r" id="tq">–</td></tr>
+    <tr><td>Radkraft</td><td class="r" id="wf">–</td></tr>
+    <tr><td>a soll / ist</td><td class="r" id="acc">–</td></tr>
+    <tr><td>Kopplung</td><td class="r" id="coup">–</td></tr>
+    <tr><td>Verbrauch</td><td class="r" id="flow">–</td></tr>
+    <tr><td>Tank</td><td class="r" id="tank">–</td></tr>
+    <tr><td>km-Stand</td><td class="r" id="odo">–</td></tr>
+    <tr><td>Kühlmittel</td><td class="r" id="cool">–</td></tr>
+  </table>
+  <canvas id="graph" width="306" height="48"></canvas>
+  <div class="status">Frame <b id="frame">–</b> ms · degrade <b id="deg">0</b> · <span id="hint">LALT Kupplung · LSHIFT/LCTRL schalten · G Motor</span></div>
+</div>
+<div id="msg"></div>
+<script>
+  const $ = id => document.getElementById(id);
+  const hist = []; const HIST = 150;
+  let msgTimer = null;
+  function fmt(n, d) { return (n === undefined || n === null || isNaN(n)) ? '–' : Number(n).toFixed(d); }
+  function draw() {
+    const c = $('graph'), ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, c.width, c.height);
+    const mid = c.height / 2, scale = c.height / 2 / 8; // +/- 8 m/s^2
+    ctx.strokeStyle = 'rgba(255,255,255,.15)'; ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(c.width, mid); ctx.stroke();
+    const step = c.width / HIST;
+    ['aDes', 'aMeas'].forEach((k, i) => {
+      ctx.strokeStyle = i === 0 ? '#4fc3f7' : '#ffb74d'; ctx.beginPath();
+      hist.forEach((h, j) => { const y = mid - (h[k] || 0) * scale; if (j === 0) ctx.moveTo(j * step, y); else ctx.lineTo(j * step, y); });
+      ctx.stroke();
+    });
+  }
+  window.addEventListener('message', e => {
+    const m = e.data || {};
+    if (m.type === 'visible') { $('panel').classList.toggle('on', !!m.on); return; }
+    if (m.type === 'message') {
+      $('msg').textContent = m.text; $('msg').style.display = 'block';
+      clearTimeout(msgTimer); msgTimer = setTimeout(() => $('msg').style.display = 'none', m.ms || 6000); return;
+    }
+    if (m.type === 'sched') { $('frame').textContent = fmt(m.avgMs, 2); $('deg').textContent = m.degrade; return; }
+    if (m.type !== 'telemetry') return;
+    const t = m.data;
+    if (!t) { $('panel').classList.remove('on'); return; }
+    if (m.autoShow) $('panel').classList.add('on');
+    const us = t.units === 'us';
+    $('spec').textContent = t.specName || 'wr_physics';
+    $('fb').textContent = t.fallback ? 'FALLBACK' : '';
+    $('speed').textContent = fmt(us ? t.speedMph : t.speedKmh, 0);
+    $('speedUnit').textContent = us ? 'mph' : 'km/h';
+    $('rpm').textContent = fmt(t.rpm, 0);
+    const g = t.gear;
+    $('gear').textContent = t.shifting ? '…' : (g === 0 ? 'N' : g < 0 ? 'R' : g);
+    $('lever').textContent = t.manual ? 'manual' : ('lever ' + t.lever);
+    const frac = Math.min(1, t.rpm / t.maxRpm);
+    $('rpmBar').style.width = (frac * 100) + '%';
+    $('rpmBar').className = t.rpm > t.redlineRpm ? 'red' : '';
+    $('redline').style.left = (t.redlineRpm / t.maxRpm * 100) + '%';
+    $('thr').style.width = (t.throttle * 100) + '%';
+    $('brk').style.width = (t.brake * 100) + '%';
+    $('clt').style.width = (t.clutchPedal * 100) + '%';
+    $('fuel').style.width = (t.fuelL / t.tankL * 100) + '%';
+    $('engine').innerHTML = t.running ? '<span class="on">läuft</span>' : (t.cranking ? 'startet…' : '<span class="off">AUS</span>') + (t.limiter ? ' · Begrenzer' : '');
+    $('clutch').textContent = (t.clutch * 100).toFixed(0) + '% ' + (t.clutchLocked ? 'geschlossen' : 'schleift') + ' · ' + fmt(t.clutchTorque, 0) + ' Nm';
+    $('tq').textContent = fmt(t.engineTorque, 0) + ' Nm';
+    $('wf').textContent = fmt(t.wheelForce, 0) + ' N (' + fmt(t.wheelTorque, 0) + ' Nm)';
+    $('acc').textContent = fmt(t.aDes, 2) + ' / ' + fmt(t.aMeas, 2) + ' m/s²';
+    $('coup').textContent = t.coupling + ' · ×' + fmt(t.powerMult, 2) + ' · ' + fmt(t.residualN, 0) + ' N';
+    $('flow').textContent = fmt(t.fuelFlowLh, 1) + ' l/h';
+    $('tank').textContent = fmt(t.fuelL, 1) + ' / ' + fmt(t.tankL, 0) + ' l';
+    $('odo').textContent = fmt(t.odometerKm, 1) + ' km';
+    $('cool').textContent = fmt(t.coolantC, 0) + ' °C';
+    hist.push({ aDes: t.aDes, aMeas: t.aMeas }); if (hist.length > HIST) hist.shift();
+    draw();
+  });
+</script>
+</body>
+</html>

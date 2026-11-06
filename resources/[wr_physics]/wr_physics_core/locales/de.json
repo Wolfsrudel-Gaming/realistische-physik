@@ -1,0 +1,7 @@
+{
+  "core.started": "Kern gestartet (v%s)",
+  "core.module_disabled": "Modul '%s' ist per Konfiguration deaktiviert",
+  "core.framework": "Framework: %s",
+  "core.db_unavailable": "oxmysql nicht verfügbar – Persistenz deaktiviert",
+  "core.db_ready": "Datenbank bereit (%d Migrationen)"
+}

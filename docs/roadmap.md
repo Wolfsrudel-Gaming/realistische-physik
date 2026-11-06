@@ -37,23 +37,23 @@
 **Ziel:** Bevor auf die wackligen Stellen (Konzept Abschnitt 3) aufgebaut wird, sind sie mit kleinen Prototypen belegt.
 
 **Infrastruktur**
-- [ ] Repo-Struktur (`resources/[wr_physics]/`, `web/`, `companion/`, `tools/`, `tests/`, `docs/`), Lizenz GPL-3.0, README DE/EN
+- [x] Repo-Struktur (`resources/[wr_physics]/`, `web/`, `companion/`, `tools/`, `tests/`, `docs/`), Lizenz GPL-3.0, README DE/EN
 - [ ] Code-Konventionen (Lua-Style, Namensschema, Einheiten SI), `CONTRIBUTING.md`
-- [ ] CI: Lua-Lint, Formatierung, busted, Release-Paket
-- [ ] Testserver-Update-Skript (Git-Pull + Neustart) *(F115)* und Anleitung
-- [ ] Fehlerreporter (Log-Dateien, optional Auto-Issue) *(F116)*
+- [x] CI: Lua-Lint, eigener Test-Runner (busted-Ersatz, keine Abhängigkeiten), Release-Paket
+- [x] Testserver-Update-Skript (Git-Pull + Neustart) *(F115)* und Anleitung
+- [x] Fehlerreporter (Log-Dateien, optional Auto-Issue) *(F116)*
 - [ ] Empfehlung und Doku für den Game-Build *(F113)*
 
-**Spikes** (jeweils ein Mini-Prototyp und ein kurzer Bericht in `docs/spikes/`)
-- [ ] S1 – Drehmoment, Drehzahl, Gang, Kupplung und Radleistung pro Frame steuern (FiveM-Natives, Kosten pro Frame)
-- [ ] S2 – Traktionsparameter pro Frame steuern plus Zusatzkräfte: Wie nah kommt man an ein vorgegebenes Reifenkraft-Ziel?
-- [ ] S3 – Handling bei einem Owner-Wechsel und State-Bag-Rate (Netzwerk-Tests mit 2+ Clients)
+**Spikes** (jeweils ein Mini-Prototyp und ein kurzer Bericht in `docs/spikes/`; `[~]` = Prototyp gebaut, Ingame-Test offen)
+- [~] S1 – Drehmoment, Drehzahl, Gang, Kupplung und Radleistung pro Frame steuern (FiveM-Natives, Kosten pro Frame)
+- [~] S2 – Traktionsparameter pro Frame steuern plus Zusatzkräfte: Wie nah kommt man an ein vorgegebenes Reifenkraft-Ziel?
+- [~] S3 – Handling bei einem Owner-Wechsel und State-Bag-Rate (Netzwerk-Tests mit 2+ Clients)
 - [ ] S4 – NUI-Gamepad-API mit Lenkrad und HOTAS (Achsen, Latenz) und Localhost-WebSocket aus der NUI
 - [ ] S5 – Ampel-Props überschreiben und NPC-Verhalten an Kreuzungen beeinflussen
 - [ ] S6 – Eigene Flug- und Bootskräfte über ApplyForce: Stabilität und Jitter im Netzwerk; GTA-Aero/-Auftrieb neutralisieren
 - [ ] S7 – Wasser-API: Wellenhöhe abfragen und setzen, Wasserstand (Gezeiten), Grundabfrage
-- [ ] S8 – Untergrundmaterial pro Rad, Materiallisten der Vanilla-Map
-- [ ] S9 – **Welt-Maßstabsfaktor messen:** Referenzstrecken GTA ↔ Realität, Faktor `k` festlegen *(F127)*
+- [~] S8 – Untergrundmaterial pro Rad, Materiallisten der Vanilla-Map
+- [~] S9 – **Welt-Maßstabsfaktor messen:** Referenzstrecken GTA ↔ Realität, Faktor `k` festlegen *(F127)*
 - [ ] S10 – Deformation speichern und wiederherstellen (Gitter-Verfahren)
 - [ ] S11 – Erweiterter Luft- und Seeraum über die Kartengrenze hinaus *(F128)*
 - [ ] S12 – Zugverbände kuppeln und eigene Strecken laden *(F82)*
